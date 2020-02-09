@@ -1,0 +1,6 @@
+0.000 All but diff2
+0.001 All but diff2
+0.005 All but diff2
+0.010 next, diff, diff2, int
+0.050 current, next, diff, diff2, int
+0.100 current, next, diff, diff2, int
