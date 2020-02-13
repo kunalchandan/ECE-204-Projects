@@ -13,7 +13,7 @@ function retval = poly_exp (x)
    if (x > 1.0)
      retval = poly_exp(x/2) ^ 2;
      return;
-   elseif (x < 1.0)
+   elseif (x <= 1.0)
       # x = [0, 0.25, 0.5, 0.75, 1];
       # y = exp(x)
       # p = polyfit(x,y,4)
