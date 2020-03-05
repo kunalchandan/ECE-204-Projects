@@ -1,0 +1,72 @@
+     0
+
+Current values
+true
+Next values
+true
+Derivatives
+true
+Second derivatives
+false
+Integrals
+true
+   1.0000e-03
+
+Current values
+true
+Next values
+true
+Derivatives
+true
+Second derivatives
+false
+Integrals
+true
+    0.0050
+
+Current values
+true
+Next values
+true
+Derivatives
+true
+Second derivatives
+false
+Integrals
+true
+    0.0100
+
+Current values
+true
+Next values
+false
+Derivatives
+false
+Second derivatives
+false
+Integrals
+false
+    0.0500
+
+Current values
+false
+Next values
+false
+Derivatives
+false
+Second derivatives
+false
+Integrals
+false
+    0.1000
+
+Current values
+false
+Next values
+false
+Derivatives
+false
+Second derivatives
+false
+Integrals
+false
