@@ -20,7 +20,7 @@ double v( double t ) {
 int main() {
     std::cout.precision( 6 );
     std::clog.precision( 16 );
-    std::cout.setstate(std::ios_base::failbit);
+    // std::cout.setstate(std::ios_base::failbit);
 
     // 'y(t)[0]' is assumed to be the output signal at time 't'
     //  - initial state is all zeros
@@ -34,7 +34,7 @@ int main() {
     // for all values on the interval [0, t_max]
     y( t_max );
 
-    std::cout.clear();
+    // std::cout.clear();
     // Print out the t-values
     std::cout << "ts = [0.0";
     for ( double t{step}; t < t_max + 0.5*step; t += step ) {

@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage[a4paper,margin=1in,landscape]{geometry}
+
+\usepackage{mathrsfs}
+\usepackage{amsmath}
+%% Begin Doc
+\begin{document}
+
+\Huge
+Simply RC Circuit:
+
+\normalsize
+\begin{equation}
+    \begin{split}
+        H(s) &= \frac{1}{1+\frac{\omega}{\omega_p}} \\
+        \mathscr{L}^{-1} \{H(s)\} &= -\omega_p^2 e^{-\omega_p t} \\
+        v_{\text{in}}(t)-v_{\text{out}}(t) &= \omega_p \frac{d v_{\text{out}}}{dt} \\
+        \Rightarrow ret[x] &= (y[x+1]/(\omega_p)) - (y[x]/(\omega_p));
+    \end{split}
+\end{equation}
+
+\Huge 
+Butterworth Filter(2nd Order):
+
+
+\normalsize
+
+\begin{equation}
+    \begin{split}
+        H(s) &= \frac{1}{(s^2 - 2\cos (\frac{3\pi}{4})s + 1)} \\
+        &= \frac{1}{s^2 + \sqrt{2} s + 1}
+        v_{\text{in}}(t)-v_{\text{out}}(t) &= \omega_p \frac{d v_{\text{out}}}{dt} \\
+        \Rightarrow ret[x] &= (y[x+1]/(\omega_p)) - (y[x]/(\omega_p));
+    \end{split}
+\end{equation}
+
+
+\normalsize
+
+\begin{equation}
+    \begin{split}
+        H(s) &= \frac{1}{(s^2 - 2\cos (\frac{7\pi}{12})s + 1)(s^2 - 2\cos (\frac{3\pi}{4})s + 1)(s^2 - 2\cos(\frac{11\pi}{12})s + 1)} \\
+        v_{\text{in}}(t)-v_{\text{out}}(t) &= \omega_p \frac{d v_{\text{out}}}{dt} \\
+        \Rightarrow ret[x] &= (y[x+1]/(\omega_p)) - (y[x]/(\omega_p));
+    \end{split}
+\end{equation}
+% $$
+% \frac{(-2\sin(\frac{3\pi}{4})\sin(\frac{7\pi}{12})(\cos(\frac{3\pi}{4}) - \cos(\frac{7\pi}{12}))((-\cos(\frac{11\pi}{12})^2 + \frac{1}{2})\sin(t\sin(\frac{11\pi}{12})) + \cos(t\sin(\frac{11\pi}{12}))\cos(\frac{11\pi}{12})\sin(\frac{11\pi}{12}))e^{(t\cos(\frac{11\pi}{12}))} + 2\sin(\frac{11\pi}{12})(((-\cos(\frac{7\pi}{12})^2 + \frac{1}{2})\sin(t\sin(\frac{7\pi}{12})) + \cos(t\sin(\frac{7\pi}{12}))\cos(\frac{7\pi}{12})\sin(\frac{7\pi}{12}))\sin(\frac{3\pi}{4})(-\cos(\frac{11\pi}{12}) + \cos(\frac{3\pi}{4}))e^{(t\cos(\frac{7\pi}{12}))} + e^{(t\cos(\frac{3\pi}{4}))}(-\cos(\frac{11\pi}{12}) + \cos(\frac{7\pi}{12}))\sin(\frac{7\pi}{12})((\cos(\frac{3\pi}{4})^2 - \frac{1}{2})\sin(t\sin(\frac{3\pi}{4})) - \cos(\frac{3\pi}{4})\sin(\frac{3\pi}{4})\cos(t\sin(\frac{3\pi}{4})))))}{(4\sin(\frac{11\pi}{12})\sin(\frac{7\pi}{12})\sin(\frac{3\pi}{4})(\cos(\frac{3\pi}{4}) - \cos(\frac{7\pi}{12}))(-\cos(\frac{11\pi}{12}) + \cos(\frac{7\pi}{12}))(-\cos(\frac{11\pi}{12}) + \cos(\frac{3\pi}{4})))} \\
+% $$
+\end{document}
