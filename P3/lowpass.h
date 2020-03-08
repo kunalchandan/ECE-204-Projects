@@ -58,12 +58,20 @@ vec<N> f( double t, vec<N> y ) {
     return w;
 }
 
+double theta(int i) {
+    return ((2*i) + (N-1))/(2*N);
+}
 // Calculate and return the phase shift of the response
 // for a function that has a frequency of 'f'
 //  - this likely will depend on the critical frequencey 'fc'
 double phase( double f ) {
     const double R{1.0};
     const double C{1.0/(2.0*M_PI*R*fc)};
-
-    return (-std::atan( 2*M_PI*f*R*C )*12);
+    const double WC{2.0*M_PI*fc};
+    double W{f*2.0*M_PI};
+    long double acc = 0.0;
+    for (int x = 0; x < N/2; x++) {
+        acc += std::atan((2*WC*f*std::cos(theta(x)))/((WC-W)*(WC+W)));
+    }
+    return acc-M_PI;
 }
