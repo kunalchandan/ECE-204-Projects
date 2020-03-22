@@ -1,0 +1,7 @@
+# C++
+*.*.gch
+*.out
+*.o
+# LaTeX
+*.log
+*.aux
