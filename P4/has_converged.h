@@ -5,13 +5,17 @@
 #include <cassert>
 
 /*
-1e-00,  t = 0.3699501
-1e-01,  t = 0.6040016
-1e-02,  t = 0.8380531
-1e-03,  t = 1.072105
-1e-04,  t = 1.306156
-1e-06,  t = 1.77421
-1e-09,  t = 2.600968
+Found for Default
+10^-0, 0.3699497219
+10^-1, 0.6040013553
+10^-2, 0.8380529953
+10^-3, 1.072104706
+10^-4, 1.306156977
+10^-5, 1.540212992
+10^-6, 1.774303329
+10^-7, 2.008800204
+10^-8, 2.246967632
+10^-9, 2.600516949
 */
 
 // Function declarations
@@ -73,7 +77,7 @@ double bracketed_secant(ivp<vec<15>> u, double max_error, double ep_fac=std::pow
 double secant_method(ivp<vec<15>> u, double max_error, double ep_fac=std::pow(10, -8)) {
     double epsilon = max_error*ep_fac;
 
-    double tn = 0.0001;
+    double tn = 0.0000;
     double tp = 0.0010;
     double en = err_max(u(tn), max_error);
     double ep = err_max(u(tp), max_error);
@@ -109,9 +113,8 @@ double has_converged( double max_error ) {
     // - you can call all globally defined functions in 'data.h'
     // and all globally defined constants
     vec<15> initial_state{};
-    for (double x = a + ((b-a)/16.0); x < b; x += (b-a)/16.0) {
-        // std::cout << x << " ";
-        initial_state[x] = u0(x);
+    for (double x = a + ((b-a)/16.0), i = 0; i < 15; x += (b-a)/16.0, i++) {
+        initial_state[i] = u0(x);
     }
     // Initialize your initial state vector.
     ivp<vec<15>> u{ f, t0, initial_state, H_INIT, H_RANGE, EPS_ABS, vec<15>::norm };
@@ -150,11 +153,9 @@ double convergence( double max_error ) {
     // - you can call all globally defined functions in 'data.h'
     // and all globally defined constants
     vec<15> initial_state{};
-    for (double x = a + ((b-a)/16.0); x < b; x += (b-a)/16.0) {
-        initial_state[x] = u0(x);
-        // std::cout << initial_state[x] << x << " ";
+    for (double x = a + ((b-a)/16.0), i = 0; i < 15; x += (b-a)/16.0, i++) {
+        initial_state[i] = u0(x);
     }
-    // std::cout << std::endl;
     // Initialize your initial state vector.
     ivp<vec<15>> u{ f, t0, initial_state, H_INIT, H_RANGE, EPS_ABS, vec<15>::norm };
 
