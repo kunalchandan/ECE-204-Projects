@@ -4,6 +4,15 @@
 #include <iostream>
 #include <cassert>
 
+/*
+1e-00,  t = 0.3699501
+1e-01,  t = 0.6040016
+1e-02,  t = 0.8380531
+1e-03,  t = 1.072105
+1e-04,  t = 1.306156
+1e-06,  t = 1.77421
+1e-09,  t = 2.600968
+*/
 
 // Function declarations
 double has_converged( double max_error );
@@ -14,16 +23,14 @@ vec<15> f( double t, vec<15> w );
 
 double err_max(vec<15> w, double diff_err) {
     double err_max{0.0};
-    uint index = 0;
     for (uint i = 0; i < 15; i++) {
         double err = ua(0) + (((i+1)/16.0)*(ub(0)-ua(0)));
         err = std::fabs(w[i] - err);
         if (err > err_max) {
             err_max = err;
-            index = i;
         }
     }
-    return err_max - diff_err;
+    return std::fabs(err_max) - diff_err;
 }
 
 double bracketed_secant(ivp<vec<15>> u, double max_error, double ep_fac=std::pow(10, -8)) {
@@ -33,16 +40,14 @@ double bracketed_secant(ivp<vec<15>> u, double max_error, double ep_fac=std::pow
     double c{0.0};
     // find lower and upper bound
     while (err_max(u(b), max_error) > 0.0) {
+        a = b;
+        c = b;
         b += 0.1;
-        if (err_max(u(b), max_error) > 0.0) {
-            a = b;
-            c = b;
-        }
     }
     // begin bracketed secant
     double error{err_max(u(c), max_error)};
     uint conv_count = 0;
-    while ((error > epsilon) || (error < -epsilon)) {
+    while (std::fabs(error) > epsilon) {
         // Prevent infinite loop by increasing size of epsilon
         conv_count++;
         if (conv_count > 10000) {
@@ -74,7 +79,7 @@ double secant_method(ivp<vec<15>> u, double max_error, double ep_fac=std::pow(10
     double ep = err_max(u(tp), max_error);
 
     double et;
-    while ((ep > epsilon) || (ep < -epsilon)) {
+    while (std::fabs(ep) > epsilon) {
         // Solve Secant method
         // Apply rule
 
@@ -105,6 +110,7 @@ double has_converged( double max_error ) {
     // and all globally defined constants
     vec<15> initial_state{};
     for (double x = a + ((b-a)/16.0); x < b; x += (b-a)/16.0) {
+        // std::cout << x << " ";
         initial_state[x] = u0(x);
     }
     // Initialize your initial state vector.
