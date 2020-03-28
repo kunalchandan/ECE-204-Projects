@@ -12,6 +12,7 @@ int main() {
     std::cout.precision( 10 );
     std::clog.precision( 16 );
     std::clog.setstate(std::ios_base::failbit);
+    std::cout << std::scientific;
     for (int x = 0; x < 10; x ++) {
         std::cout << "10^-"<< x << ", " << has_converged(std::pow(10.0, -x)) << std::endl;
 
