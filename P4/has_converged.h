@@ -6,9 +6,9 @@
 
 /*
 Found for Default
-10^-0, 0.3699497219
-10^-1, 0.6040013553
-10^-2, 0.8380529953
+10^-0, 0.369949722
+10^-1, 0.604001355
+10^-2, 0.838052995
 10^-3, 1.072104706
 10^-4, 1.306156977
 10^-5, 1.540212992
@@ -60,6 +60,7 @@ double bracketed_secant(ivp<vec<15>> u, double max_error, double ep_fac=std::pow
         double ea = err_max(u(a), max_error);
         double eb = err_max(u(b), max_error);
 
+        // Apply bracketed Secant rule 
         c = (a*eb - b*ea)/(eb - ea);
         error = err_max(u(c), max_error);
 
@@ -89,6 +90,7 @@ double secant_method(ivp<vec<15>> u, double max_error, double ep_fac=std::pow(10
 
         double tt = ((tn*ep) - (tp*en))/(ep - en);
         try {
+            // If this isn't converging try bracketed secant
             if (std::isinf(tt)) {
                 throw std::out_of_range("INF");
             } else if (std::isnan(tt)) {
@@ -97,8 +99,11 @@ double secant_method(ivp<vec<15>> u, double max_error, double ep_fac=std::pow(10
 
             et = err_max(u(tt), max_error);
         } catch (std::runtime_error r) {
+            // This happens very infrequently and would only arise as a result of not defining your error correctly
             return tp;
         }
+
+        // Get ready to move to the next iterative step
         tn = tp;
         tp = tt;
         en = ep;
@@ -112,15 +117,18 @@ double has_converged( double max_error ) {
     // Your implementation here (some hints included):
     // - you can call all globally defined functions in 'data.h'
     // and all globally defined constants
+
+    // As an aside not related to the project because this issue caused me lots of frustration, 
+    // I really wish C++ was a lot more strict and explicit about type conversions like Rust is
     vec<15> initial_state{};
+    // Divide the section into 16 parts and start counting an index along with a position
     for (double x = a + ((b-a)/16.0), i = 0; i < 15; x += (b-a)/16.0, i++) {
         initial_state[i] = u0(x);
     }
     // Initialize your initial state vector.
     ivp<vec<15>> u{ f, t0, initial_state, H_INIT, H_RANGE, EPS_ABS, vec<15>::norm };
 
-    // u(3.2) returns a vec<15> with the temperatures at the
-    // 15 intermediate points at time 3.2
+    // So like since secant method is not garuanteed to converge and sometimes does not converge we have the backup which is bracketed secant method    
     double t = 0;
     try {
         t = secant_method(u, max_error);
