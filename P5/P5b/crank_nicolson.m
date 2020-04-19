@@ -10,10 +10,10 @@ function [U] = crank_nicolson( kappa, a, b, t0, u0, ua, ub, nx, delta_t, nt )
   endfor
   % 2.
   for L = 2:(nt+1)
-    t = t0 + delta_t*L;
+    t = t0 + delta_t*(L-2);
     % a.
-    U(  1 ,L) = ua(t);
-    U(nx+1,L) = ub(t);
+    U(  1  ,L) = ua(t+delta_t);
+    U(nx +1,L) = ub(t+delta_t);
     % b.
     l = L-1;
     % build the solution vector
